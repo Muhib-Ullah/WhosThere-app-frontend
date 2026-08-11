@@ -1,1 +1,13 @@
+/* Font Imports */
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+/* Tailwind CSS Import */
 @import "tailwindcss";
+
+@theme {
+  /* Fonts */
+  --font-google-sans: "Google Sans", sans-serif;
+  /* Color Palette */
+  --color-primary: #249D8F; 
+  --color-secondary: #E76F51;
+  --color-accent: #E9C46A;
+}
