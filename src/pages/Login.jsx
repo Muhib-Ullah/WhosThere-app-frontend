@@ -1,14 +1,18 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 //Custom Imports
 import FormField from "../components/FormField";
   
 const Login = () => {
   const {register, handleSubmit, formState: { errors }} = useForm({mode: "onBlur"});
+  const navigate = useNavigate();
 
   const handleFormSubmit = (data) => {
     console.log(data);
+    if(data){
+      navigate("/dashboard");
+    }
   };
 
   return (
