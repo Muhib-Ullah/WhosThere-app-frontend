@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom';
+
 const AuthLayout = () => {
     return (
       <div className="grid min-h-screen grid-cols-1 md:grid-cols-12">
