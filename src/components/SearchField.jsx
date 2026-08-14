@@ -10,7 +10,7 @@ const SearchField = ({ placeholder, value, onChange }) => {
       <input type="text"
         placeholder={placeholder}
         value={value}
-        onChange={onChange}
+        onChange={(e) => onChange(e.target.value)}
         className="font-google-sans block w-full rounded-sm bg-white px-3 py-2 pl-9 pr-3 text-base outline-1 -outline-offset-1 outline-gray-300
           transition duration-200 ease-in-out focus:outline-1 focus:outline-primary placeholder:text-gray-400 sm:text-sm/6"
       />

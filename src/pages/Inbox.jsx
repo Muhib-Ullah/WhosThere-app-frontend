@@ -1,5 +1,6 @@
 import React from "react";
 import { Star, Mail, Trash2, Check } from "lucide-react";
+import { useState } from "react";
 //Custom Imports
 import InboxFilters from "../components/InboxFilters";
 import SearchField from "../components/SearchField";
@@ -71,6 +72,18 @@ const Inbox = () => {
     isStarred: false,
   },
   ];
+  //Filters Management
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+
+  //Message filteration based on search input and messagetype filter
+  const filteredMessages = messages.filter((messages) => { 
+    //handle search input filteration
+    let searchMatch = messages.messageSubject.toLowerCase().includes(search.toLowerCase());
+    //handle message type filteration
+    let typeMatch = filter === "All" || (filter === "Unread" && !messages.isRead) || (filter === "Starred" && messages.isStarred);
+    return searchMatch && typeMatch;
+  });
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
@@ -83,16 +96,13 @@ const Inbox = () => {
         </p>
       </div>
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <InboxFilters />
-        <SearchField placeholder="Search messages" />
+        <InboxFilters filter={filter} setFilter={setFilter} />
+        <SearchField placeholder="Search messages" value={search} onChange={setSearch} />
       </div>
       <div className="mt-4 flex h-[calc(100vh-360px)] min-h-110 overflow-hidden rounded-sm border border-gray-200 bg-white">
         <div className="message-scroll h-full w-full overflow-y-auto md:w-[38%] md:border-r md:border-gray-200">
-          {messages.map((message) => (
-            <MessageCard
-              key={message.id}
-              message={message}
-            />
+          {filteredMessages.map((message) => (
+            <MessageCard key={message.id} message={message} />
           ))}
         </div>
         <div className="hidden h-full flex-1 md:block">
