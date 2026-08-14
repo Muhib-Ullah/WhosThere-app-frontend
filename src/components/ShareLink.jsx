@@ -1,5 +1,6 @@
 import { Link2, Copy, Info } from "lucide-react";
 import  { toast } from "react-hot-toast"
+
 const ShareLink = ({ personalLink }) => {
 
   const handleCopy = async () => {
@@ -8,7 +9,7 @@ const ShareLink = ({ personalLink }) => {
   };
 
   return (
-    <div className="rounded-xl border border-[#DDEAE8] bg-[#f9f9f9] p-4 sm:p-7">
+    <div className="rounded-sm border border-[#DDEAE8] bg-[#f9f9f9] p-4 sm:p-7">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
         <div className="hidden h-24 w-24 shrink-0 items-center justify-center sm:flex">
           <Link2 size={48} strokeWidth={2} className="text-secondary" />
