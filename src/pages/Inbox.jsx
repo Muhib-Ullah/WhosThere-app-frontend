@@ -5,6 +5,7 @@ import { useState } from "react";
 import InboxFilters from "../components/InboxFilters";
 import SearchField from "../components/SearchField";
 import MessageCard from "../components/MessageCard";
+import MessagePreview from "../components/MessagePreview";
 
 const Inbox = () => {
   const messages = [
@@ -12,7 +13,8 @@ const Inbox = () => {
     id: 1,
     sender: "Anonymous",
     messageSubject: "You're such a genuine person. I really admire how you treat everyone around you.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
+    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
+
     createdAt: "2 min ago",
     isRead: false,
     isStarred: false,
@@ -72,10 +74,11 @@ const Inbox = () => {
     isStarred: false,
   },
   ];
-  //Filters Management
+  //State Management
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-
+  const [selectedMessage, setSelectedMessage] = useState(null);
+  
   //Message filteration based on search input and messagetype filter
   const filteredMessages = messages.filter((messages) => { 
     //handle search input filteration
@@ -97,16 +100,16 @@ const Inbox = () => {
       </div>
       <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <InboxFilters filter={filter} setFilter={setFilter} />
-        <SearchField placeholder="Search messages" value={search} onChange={setSearch} />
+        <SearchField placeholder="Search" value={search} onChange={setSearch} />
       </div>
-      <div className="mt-4 flex h-[calc(100vh-360px)] min-h-110 overflow-hidden rounded-sm border border-gray-200 bg-white">
+      <div className="mt-4 flex h-[calc(100vh-360px)] min-h-110 overflow-hidden rounded-sm border border-gray-300 bg-white">
         <div className="message-scroll h-full w-full overflow-y-auto md:w-[38%] md:border-r md:border-gray-200">
           {filteredMessages.map((message) => (
-            <MessageCard key={message.id} message={message} />
+            <MessageCard key={message.id} message={message} setSelectedMessage={setSelectedMessage} />
           ))}
         </div>
         <div className="hidden h-full flex-1 md:block">
-          {/* <MessagePreview /> */}
+          <MessagePreview selectedMessage={selectedMessage} />
         </div>
 
       </div> 

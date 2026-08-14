@@ -28,7 +28,7 @@ const ShareLink = ({ personalLink }) => {
                 { personalLink }
               </span>
             </div>
-            <button className="mt-2 flex min-h-11 items-center justify-center gap-2 rounded-sm bg-secondary px-12 font-google-sans npm
+            <button className="mt-2 flex min-h-11 items-center justify-center gap-2 rounded-sm bg-secondary px-12 font-google-sans
               text-sm text-white sm:mt-0 sm:rounded-l-none" 
               onClick={handleCopy} >
               <Copy size={18} strokeWidth={2} />
