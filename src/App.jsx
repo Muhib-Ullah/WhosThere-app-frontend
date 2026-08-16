@@ -10,21 +10,27 @@ import DashboardLayout from './layouts/DashboardLayout'
 import Dashboard from './pages/Dashboard'
 import Inbox from './pages/Inbox'
 import Profile from './pages/Profile'
+import PublicRoute from './components/route-components/PublicRoute'
+import PrivateRoute from './components/route-components/PrivateRoute'
 
 function App() {
   return (
     <BrowserRouter>
       <Toaster position="top-right" />
       <Routes>
-        <Route element={<AuthLayout />}>
-          <Route path="/" element={<Navigate to="/login" replace />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <Route element={<PublicRoute />}>
+          <Route element={<AuthLayout />}>
+            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
         </Route>
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/inbox" element={<Inbox />} />
-          <Route path="/profile" element={<Profile />} />
+        <Route element={<PrivateRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/inbox" element={<Inbox />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

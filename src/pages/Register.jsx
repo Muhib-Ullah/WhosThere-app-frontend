@@ -46,7 +46,7 @@ const Register = () => {
                 type="email"
                 placeholder="Enter your email address"
                 {...register("email", { required: "Email Address is required.", 
-                  pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Invalid email address." } })}
+                  pattern: { value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i, message: "Invalid Email Address." } })}
                 error={errors.email}
                 />
             </div>
