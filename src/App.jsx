@@ -12,6 +12,7 @@ import Inbox from './pages/Inbox'
 import Profile from './pages/Profile'
 import PublicRoute from './components/route-components/PublicRoute'
 import PrivateRoute from './components/route-components/PrivateRoute'
+import { AuthProvider } from './contexts/AuthContext'
 
 function App() {
   return (
@@ -26,7 +27,11 @@ function App() {
           </Route>
         </Route>
         <Route element={<PrivateRoute />}>
-          <Route element={<DashboardLayout />}>
+          <Route element={
+            <AuthProvider>
+              <DashboardLayout />
+            </AuthProvider>            
+            }>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/inbox" element={<Inbox />} />
             <Route path="/profile" element={<Profile />} />
