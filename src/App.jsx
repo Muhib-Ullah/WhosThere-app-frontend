@@ -31,7 +31,7 @@ function App() {
             <Route path="/inbox" element={<Inbox />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
-        </Route>
+        </Route>  
       </Routes>
     </BrowserRouter>
   )

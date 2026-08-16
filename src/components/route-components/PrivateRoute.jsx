@@ -1,16 +1,12 @@
-//react imports
 import React from 'react'
-import { Navigate } from 'react-router-dom'
-
-//custom imports
+import { Navigate, Outlet } from 'react-router-dom'
 import { isAuthenticated } from '../../utils/Token'
 
-const PrivateRoute = ({children}) => {
+const PrivateRoute = () => {
   if (!isAuthenticated()) {
     return <Navigate to="/login" replace />
   }
-
-  return children;
+  return <Outlet />
 }
 
 export default PrivateRoute
