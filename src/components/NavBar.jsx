@@ -1,10 +1,20 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
-import { Bell, Menu, X } from "lucide-react";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Bell, Menu, X, LogOut } from "lucide-react";
+import { removeToken } from "../utils/Token";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+
   const NavLinkClass = ({ isActive }) => `font-google-sans text-sm transition ${ isActive ? "text-primary" : "text-gray-400 hover:text-primary" }`;
+
+  const handleLogout = () => {
+    removeToken();
+    toast.success('User logged out successfully');
+    navigate('/login');
+  }
 
   return (
     <nav className="border-b border-gray-200 bg-white">
@@ -28,6 +38,11 @@ const Navbar = () => {
         <div className="ml-auto flex items-center gap-5">
           <button className="text-gray-400 transition hover:text-primary">
             <Bell size={20} strokeWidth={1.5} />
+          </button>
+          <button className="flex items-center gap-2 rounded-sm px-4 py-2 font-google-sans text-sm text-white bg-secondary"
+            onClick={handleLogout}>
+            <LogOut size={16} />
+              Log out
           </button>
           <button onClick={() => setMenuOpen(!menuOpen)}
             className="text-gray-500 transition hover:text-primary md:hidden">
