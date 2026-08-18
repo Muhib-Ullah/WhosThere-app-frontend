@@ -1,84 +1,35 @@
 import React from "react";
-import { Star, Mail, Trash2, Check } from "lucide-react";
-import { useState } from "react";
+import { Star, Mail, Trash2, Check, CircleOff } from "lucide-react";
+import { useState, useEffect } from "react";
+import toast from 'react-hot-toast';
 //Custom Imports
 import InboxFilters from "../components/InboxFilters";
 import SearchField from "../components/SearchField";
 import MessageCard from "../components/MessageCard";
 import MessagePreview from "../components/MessagePreview";
+import { GetMessages } from "../services/MessageService";
 
 const Inbox = () => {
-  const messages = [
-  {
-    id: 1,
-    sender: "Anonymous",
-    messageSubject: "You're such a genuine person. I really admire how you treat everyone around you.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-
-    createdAt: "2 min ago",
-    isRead: false,
-    isStarred: false,
-  },
-  {
-    id: 2,
-    sender: "Anonymous",
-    messageSubject: "You have such a kind heart. Never change who you are.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "1 hour ago",
-    isRead: true,
-    isStarred: true,
-  },
-  {
-    id: 3,
-    sender: "Anonymous",
-    messageSubject: "You inspire more people than you think. Keep doing what you're doing!",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "3 hours ago",
-    isRead: false,
-    isStarred: false,
-  },
-  {
-    id: 4,
-    sender: "Anonymous",
-    messageSubject: "We should definitely hang out sometime! You seem like a really cool person.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "Yesterday",
-    isRead: true,
-    isStarred: false,
-  },
-  {
-    id: 5,
-    sender: "Anonymous",
-    messageSubject: "I honestly think you're one of the most interesting people I know.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "Yesterday",
-    isRead: true,
-    isStarred: true,
-  },
-  {
-    id: 6,
-    sender: "Anonymous",
-    messageSubject: "Someone really appreciates everything you do, even if they don't say it.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "2 days ago",
-    isRead: false,
-    isStarred: false,
-  },
-  {
-    id: 7,
-    sender: "Anonymous",
-    messageSubject: "You always know how to make people feel comfortable around you.",
-    message: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc. Sed euismod, nunc ut aliquam lacinia, nunc nisl aliquam nisl, eget aliquam nunc nisl eget nunc.",
-    createdAt: "3 days ago",
-    isRead: true,
-    isStarred: false,
-  },
-  ];
-  //State Management
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
+  const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
   
+  useEffect(() => {
+    const loadMessages = async () => {
+      try {
+        const response = await GetMessages();
+        if (response.success) {
+          setMessages(response.data);
+        }
+      } catch (error) {
+        toast.error(error.response.data?.message);
+      }
+    }
+    
+    loadMessages();
+  }, []);
+
   //Message filteration based on search input and messagetype filter
   const filteredMessages = messages.filter((messages) => { 
     //handle search input filteration
@@ -104,14 +55,32 @@ const Inbox = () => {
       </div>
       <div className="mt-4 flex h-[calc(100vh-360px)] min-h-110 overflow-hidden rounded-sm border border-gray-300 bg-white">
         <div className="message-scroll h-full w-full overflow-y-auto md:w-[38%] md:border-r md:border-gray-200">
-          {filteredMessages.map((message) => (
-            <MessageCard key={message.id} message={message} setSelectedMessage={setSelectedMessage} />
-          ))}
+          {filteredMessages.length > 0 ? (filteredMessages.map((message) => (
+              <MessageCard key={message.messageId}
+                message={message} setSelectedMessage={setSelectedMessage} />
+            ))) : messages.length === 0 ? (
+              <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                    <CircleOff size={26} strokeWidth={2} className="text-primary"/>
+                  </div>
+                  <p className="mt-4 font-google-sans text-md font-medium text-gray-400">
+                    The inbox is suspiciously quiet!
+                  </p>
+                </div>
+            ) : (
+              <div className="flex h-full flex-col items-center justify-center px-6 text-center">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                  <CircleOff size={26} strokeWidth={2} className="text-primary"/>
+                </div>
+                <p className="mt-4 font-google-sans text-sm text-gray-400">
+                  No {filter.toLowerCase()} messages found.
+                </p>
+              </div>
+            )}
         </div>
         <div className="hidden h-full flex-1 md:block">
           <MessagePreview selectedMessage={selectedMessage} />
         </div>
-
       </div> 
     </div>
   );

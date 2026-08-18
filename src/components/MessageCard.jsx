@@ -1,5 +1,7 @@
 import React from "react";
 import { Mail, Star } from "lucide-react";
+//Custom Imports
+import { formatTime } from "../utils/DateTime";
 
 const MessageCard = ({ message, setSelectedMessage }) => {
   
@@ -19,7 +21,7 @@ const MessageCard = ({ message, setSelectedMessage }) => {
               {message.sender}
             </p>
             <span className="shrink-0 font-google-sans text-xs text-gray-400">
-              {message.createdAt}
+              {formatTime(message.sentAt)}
             </span>
           </div>
           <p className={`mt-1 truncate font-google-sans text-sm ${messageReadClass}`}>
