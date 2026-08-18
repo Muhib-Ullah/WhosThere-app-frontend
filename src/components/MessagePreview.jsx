@@ -65,8 +65,8 @@ const MessagePreview = ({ selectedMessage }) => {
         </div>
       ) : (
         <div className="flex h-full flex-col items-center justify-center px-6 text-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary/10">
-            <MailOpen size={26} strokeWidth={2} className="text-secondary"/>
+          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+            <MailOpen size={26} strokeWidth={2} className="text-primary"/>
           </div>
           <p className="mt-4 font-google-sans text-md font-medium text-primary">
             Select a message

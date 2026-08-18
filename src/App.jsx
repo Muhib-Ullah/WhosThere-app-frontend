@@ -13,6 +13,7 @@ import Profile from './pages/Profile'
 import PublicRoute from './components/route-components/PublicRoute'
 import PrivateRoute from './components/route-components/PrivateRoute'
 import { AuthProvider } from './contexts/AuthContext'
+import PublicProfile from './pages/PublicProfile'
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
             <Route path="/inbox" element={<Inbox />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
-        </Route>  
+        </Route>
+        <Route path='u/:shareCode' element={<PublicProfile />}></Route>  
       </Routes>
     </BrowserRouter>
   )

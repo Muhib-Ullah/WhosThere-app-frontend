@@ -11,8 +11,8 @@ const ShareLink = ({ personalLink }) => {
   return (
     <div className="rounded-sm border border-[#DDEAE8] bg-[#f9f9f9] p-4 sm:p-7">
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
-        <div className="hidden h-24 w-24 shrink-0 items-center justify-center sm:flex">
-          <Link2 size={48} strokeWidth={2} className="text-secondary" />
+        <div className="hidden h-24 w-24 shrink-0 items-center justify-center sm:flex  rounded-full bg-primary/10">
+          <Link2 size={48} strokeWidth={2} className="text-primary" />
         </div>
         <div className="min-w-0 flex-1">
           <h2 className="font-google-sans text-base text-primary font-medium">

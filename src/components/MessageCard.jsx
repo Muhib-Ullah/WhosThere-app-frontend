@@ -10,8 +10,8 @@ const MessageCard = ({ message, setSelectedMessage }) => {
     <div className={`cursor-pointer border-b border-gray-100 px-4 py-5 transition hover:bg-gray-50 ${!message.isRead ? "bg-primary/10" : ""}`} 
         onClick={() => setSelectedMessage(message)}>
       <div className="flex items-start gap-3">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10">
-          <Mail size={18} strokeWidth={2} className="text-secondary" />
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10">
+          <Mail size={18} strokeWidth={2} className="text-primary" />
         </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-3">
