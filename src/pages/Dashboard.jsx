@@ -5,7 +5,7 @@ import { AuthContext } from "../contexts/AuthContext";
 
 const Dashboard = () => {
   const { AuthUser } = useContext(AuthContext);
-  const link = `${import.meta.env.VITE_APP_URL}/u/${AuthUser?.shareCode}`;
+  const link = `${import.meta.env.VITE_APP_URL}/${AuthUser?.userName}/${AuthUser?.shareCode}`;
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div>

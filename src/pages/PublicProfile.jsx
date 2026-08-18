@@ -6,14 +6,22 @@ import toast from 'react-hot-toast';
 //Custom Imports
 import FormField from '../components/FormField';
 import TextAreaField from '../components/TextAreaField';
+import { SendMessage } from '../services/MessageService';
 
 const PublicProfile = () => {
-  const { shareCode } = useParams();
-  const {register, handleSubmit, formState: { errors }} = useForm({mode: "onBlur"});
+  const { userName, shareCode } = useParams();
+  const {register, handleSubmit, reset, formState: { errors }} = useForm({mode: "onBlur"});
 
-  const handleMessageSubmit = (data) => {
-    console.log(data);
-    toast.success('Message sent successfully');
+  const handleMessageSubmit = async (data) => {
+    try {
+      const response = await SendMessage(shareCode, data);
+      if(response.success) {
+        toast.success(response.message);
+        reset();
+      }
+    } catch (error) {
+      toast.error(error.response.data?.message);
+    }
   }
 
   return (
@@ -26,7 +34,7 @@ const PublicProfile = () => {
           Send an anonymous message to
         </h1>
         <h1 className="font-google-sans text-4xl font-bold text-primary mt-1">
-          username
+          {userName}
         </h1>
       </div>
       <div className="rounded-sm border p-8 w-full max-w-4xl mt-6 border-gray-200 bg-[#f9f9f9]">

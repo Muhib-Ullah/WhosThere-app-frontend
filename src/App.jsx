@@ -38,7 +38,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
-        <Route path='u/:shareCode' element={<PublicProfile />}></Route>  
+        <Route path=':userName/:shareCode' element={<PublicProfile />}></Route>  
       </Routes>
     </BrowserRouter>
   )
