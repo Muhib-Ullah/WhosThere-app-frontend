@@ -9,7 +9,6 @@ import Register from './pages/Register'
 import DashboardLayout from './layouts/DashboardLayout'
 import Dashboard from './pages/Dashboard'
 import Inbox from './pages/Inbox'
-import Profile from './pages/Profile'
 import PublicRoute from './components/route-components/PublicRoute'
 import PrivateRoute from './components/route-components/PrivateRoute'
 import { AuthProvider } from './contexts/AuthContext'
@@ -35,7 +34,6 @@ function App() {
             }>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/inbox" element={<Inbox />} />
-            <Route path="/profile" element={<Profile />} />
           </Route>
         </Route>
         <Route path=':userName/:shareCode' element={<PublicProfile />}></Route>  

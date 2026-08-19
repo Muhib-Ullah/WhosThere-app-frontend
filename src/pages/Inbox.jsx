@@ -1,46 +1,38 @@
-import React from "react";
-import { Star, Mail, Trash2, Check, CircleOff } from "lucide-react";
-import { useState, useEffect } from "react";
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import {CircleOff } from "lucide-react";
 //Custom Imports
 import InboxFilters from "../components/InboxFilters";
 import SearchField from "../components/SearchField";
 import MessageCard from "../components/MessageCard";
 import MessagePreview from "../components/MessagePreview";
-import { GetMessages, MarkAsRead, MarkAsStarred, DeleteMessage } from "../services/MessageService";
+import useMessage from "../hooks/useMessage";
 
 const Inbox = () => {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
-  const [messages, setMessages] = useState([]);
   const [selectedMessage, setSelectedMessage] = useState(null);
-  
-  useEffect(() => {
-    const loadMessages = async () => {
-      try {
-        const response = await GetMessages();
-        if (response.success) {
-          setMessages(response.data);
-        }
-      } catch (error) {
-        toast.error(error.response.data?.message);
-      }
-    }
-    
-    loadMessages();
-  }, []);
 
-  //Message filteration based on search input and messagetype filter
+  const {messages, setMessages, markAsRead, markAsStarred, OnDeleteMessage} = useMessage();
+ 
   const filteredMessages = messages.filter((messages) => { 
-    //handle search input filteration
     let searchMatch = messages.messageSubject.toLowerCase().includes(search.toLowerCase());
-    //handle message type filteration
     let typeMatch = filter === "All" || (filter === "Unread" && !messages.isRead) || (filter === "Starred" && messages.isStarred);
     return searchMatch && typeMatch;
   });
 
   const handleMessageSelect = async (message) => {
-    setSelectedMessage(message)
+    const selectedMessage = await markAsRead(message);
+    setSelectedMessage(selectedMessage);
+  }
+
+  const handleStar = async (message) => {
+    const starredMessage = await markAsStarred(message);
+    setSelectedMessage(starredMessage);
+  }
+
+  const handleDelete = async () => {
+    const deletedMessage = await OnDeleteMessage(selectedMessage);
+    setSelectedMessage(null); 
   }
 
   return (
@@ -61,7 +53,7 @@ const Inbox = () => {
         <div className="message-scroll h-full w-full overflow-y-auto md:w-[38%] md:border-r md:border-gray-200">
           {filteredMessages.length > 0 ? (filteredMessages.map((message) => (
               <MessageCard key={message.messageId}
-                message={message} setSelectedMessage={setSelectedMessage} />
+                message={message} setSelectedMessage={handleMessageSelect} />
             ))) : messages.length === 0 ? (
               <div className="flex h-full flex-col items-center justify-center px-6 text-center">
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
@@ -83,7 +75,7 @@ const Inbox = () => {
             )}
         </div>
         <div className="hidden h-full flex-1 md:block">
-          <MessagePreview selectedMessage={selectedMessage} />
+          <MessagePreview selectedMessage={selectedMessage} handleStar={handleStar} handleDelete={handleDelete}/>
         </div>
       </div> 
     </div>

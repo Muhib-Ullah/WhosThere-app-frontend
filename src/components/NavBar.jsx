@@ -31,9 +31,6 @@ const Navbar = () => {
           <NavLink to="/inbox" className={NavLinkClass}>
             Inbox
           </NavLink>
-          <NavLink to="/profile" className={NavLinkClass}>
-            Profile
-          </NavLink>
         </div>
 
         <div className="ml-auto flex items-center gap-5">

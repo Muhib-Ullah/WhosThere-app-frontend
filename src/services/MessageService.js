@@ -17,11 +17,11 @@ export const MarkAsRead = async (messageId) => {
 }
 
 export const MarkAsStarred = async (messageId) => {
-  const response = await axios.put(`message/${messageId}/markasstarred`);
+  const response = await axios.put(`message/${messageId}/togglestar`);
   return response.data;
 }
 
 export const DeleteMessage = async (messageId) => {
-  const response = await axios.put(`message/${messageId}/delete`);
+  const response = await axios.delete(`message/${messageId}/delete`);
   return response.data;
 }

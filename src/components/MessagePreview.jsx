@@ -3,7 +3,7 @@ import { MailOpen, Check, Trash2, Star } from "lucide-react";
 //Custom Imports
 import { formatTime } from "../utils/DateTime";
 
-const MessagePreview = ({ selectedMessage }) => {
+const MessagePreview = ({ selectedMessage, handleStar,  handleDelete }) => {
   return (
     <div className="h-full">
       {selectedMessage ? (
@@ -17,7 +17,9 @@ const MessagePreview = ({ selectedMessage }) => {
                 Received {formatTime(selectedMessage.sentAt)}
               </p>
             </div>
-            <button className={`transition ${selectedMessage.isStarred ? "text-yellow-400" : "text-gray-300 hover:text-yellow-400"}`}>
+            <button className={`transition ${selectedMessage.isStarred ? "text-yellow-400" : "text-gray-300 hover:text-yellow-400"}`}
+              onClick={() => handleStar(selectedMessage)}
+            >
               <Star size={21} strokeWidth={1.7}
                 fill={selectedMessage.isStarred ? "currentColor" : "none"} />
             </button>
@@ -38,15 +40,10 @@ const MessagePreview = ({ selectedMessage }) => {
             </div>
           </div>
           <div className="flex items-center justify-end gap-3 border-t border-gray-300 px-6 py-4">
-            {!selectedMessage.isRead && (
-              <button className="flex items-center gap-2 rounded-sm  px-4 py-2 font-google-sans text-sm text-white bg-primary">
-                <Check size={16} />
-                Mark as read
-              </button>
-            )}
-            <button className="flex items-center gap-2 rounded-sm px-4 py-2 font-google-sans text-sm text-white bg-secondary">
+            <button className="flex items-center gap-2 rounded-sm px-4 py-2 font-google-sans text-sm text-white bg-secondary"
+              onClick={handleDelete}>
               <Trash2 size={16} />
-              Delete
+                Delete
             </button>
           </div>
         </div>
