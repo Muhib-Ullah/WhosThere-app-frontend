@@ -17,12 +17,17 @@ const MessagePreview = ({ selectedMessage, handleStar,  handleDelete }) => {
                 Received {formatTime(selectedMessage.sentAt)}
               </p>
             </div>
-            <button className={`transition ${selectedMessage.isStarred ? "text-yellow-400" : "text-gray-300 hover:text-yellow-400"}`}
-              onClick={() => handleStar(selectedMessage)}
-            >
-              <Star size={21} strokeWidth={1.7}
-                fill={selectedMessage.isStarred ? "currentColor" : "none"} />
-            </button>
+            <div className="flex justify-center items-center gap-4">
+              <button className={`transition ${selectedMessage.isStarred ? "text-yellow-400" : "text-gray-400 hover:text-yellow-400"}`}
+                onClick={() => handleStar(selectedMessage)} >
+                <Star size={22} strokeWidth={1.5}
+                  fill={selectedMessage.isStarred ? "currentColor" : "none"} />
+              </button>
+              <button className="text-gray-400 transition hover:text-secondary"
+                onClick={handleDelete}>
+                <Trash2 size={22} strokeWidth={1.5}/>
+              </button>
+            </div>
           </div>
           <div className="message-scroll flex-1 overflow-y-auto px-6 py-8">
             <div>
@@ -39,13 +44,13 @@ const MessagePreview = ({ selectedMessage, handleStar,  handleDelete }) => {
               </p>
             </div>
           </div>
-          <div className="flex items-center justify-end gap-3 border-t border-gray-300 px-6 py-4">
+          {/* <div className="flex items-center justify-end gap-3 border-t border-gray-300 px-6 py-4">
             <button className="flex items-center gap-2 rounded-sm px-4 py-2 font-google-sans text-sm text-white bg-secondary"
               onClick={handleDelete}>
               <Trash2 size={16} />
                 Delete
             </button>
-          </div>
+          </div> */}
         </div>
       ) : (
         <div className="flex h-full flex-col items-center justify-center px-6 text-center">

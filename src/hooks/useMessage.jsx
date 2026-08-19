@@ -5,12 +5,16 @@ import { GetMessages, MarkAsRead, MarkAsStarred, DeleteMessage } from "../servic
 
 const useMessage = () => {
   const [messages, setMessages] = useState([]);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
   //Fetch Messages
   const fetchMessages = async () => {
     try {
-      const response = await GetMessages();
+      const response = await GetMessages(page);
       if (response.success) {
-        setMessages(response.data);
+        setMessages(response.data.messages);
+        setTotalPages(response.data.totalPages);
       }
     } catch (error) {
         toast.error(error.response.data?.message);
@@ -19,7 +23,7 @@ const useMessage = () => {
 
   useEffect(() => {
     fetchMessages();
-  },  [])
+  },  [page])
 
   //Mark As Read
   const markAsRead = async (message) => {
@@ -76,7 +80,7 @@ const useMessage = () => {
     }
   }
 
-  return {messages, setMessages, markAsRead, markAsStarred, OnDeleteMessage}
+  return {messages, setMessages, page, setPage, totalPages, markAsRead, markAsStarred, OnDeleteMessage}
 }
 
 export default useMessage
