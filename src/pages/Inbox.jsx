@@ -7,7 +7,7 @@ import InboxFilters from "../components/InboxFilters";
 import SearchField from "../components/SearchField";
 import MessageCard from "../components/MessageCard";
 import MessagePreview from "../components/MessagePreview";
-import { GetMessages } from "../services/MessageService";
+import { GetMessages, MarkAsRead, MarkAsStarred, DeleteMessage } from "../services/MessageService";
 
 const Inbox = () => {
   const [search, setSearch] = useState("");
@@ -39,6 +39,10 @@ const Inbox = () => {
     return searchMatch && typeMatch;
   });
 
+  const handleMessageSelect = async (message) => {
+    setSelectedMessage(message)
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
       <div>
@@ -63,7 +67,7 @@ const Inbox = () => {
                   <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
                     <CircleOff size={26} strokeWidth={2} className="text-primary"/>
                   </div>
-                  <p className="mt-4 font-google-sans text-md font-medium text-gray-400">
+                  <p className="mt-4 font-google-sans text-sm text-gray-400">
                     The inbox is suspiciously quiet!
                   </p>
                 </div>

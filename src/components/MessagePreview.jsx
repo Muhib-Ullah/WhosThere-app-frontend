@@ -11,7 +11,7 @@ const MessagePreview = ({ selectedMessage }) => {
           <div className="flex items-center justify-between border-b border-gray-300 px-6 py-4">
             <div>
               <p className="font-google-sans text-md font-medium text-primary">
-                {selectedMessage.sender}
+                {selectedMessage.messageSender}
               </p>
               <p className="mt-1 font-google-sans text-xs text-gray-400">
                 Received {formatTime(selectedMessage.sentAt)}

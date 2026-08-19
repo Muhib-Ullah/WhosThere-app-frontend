@@ -15,3 +15,13 @@ export const MarkAsRead = async (messageId) => {
   const response = await axios.put(`message/${messageId}/markasread`);
   return response.data;
 }
+
+export const MarkAsStarred = async (messageId) => {
+  const response = await axios.put(`message/${messageId}/markasstarred`);
+  return response.data;
+}
+
+export const DeleteMessage = async (messageId) => {
+  const response = await axios.put(`message/${messageId}/delete`);
+  return response.data;
+}

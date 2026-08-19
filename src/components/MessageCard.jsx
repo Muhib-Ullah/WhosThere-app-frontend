@@ -18,7 +18,7 @@ const MessageCard = ({ message, setSelectedMessage }) => {
         <div className="min-w-0 flex-1">
           <div className="flex items-center justify-between gap-3">
             <p className={`truncate font-google-sans text-sm ${messageReadClass}`}>
-              {message.sender}
+              {message.messageSender}
             </p>
             <span className="shrink-0 font-google-sans text-xs text-gray-400">
               {formatTime(message.sentAt)}
