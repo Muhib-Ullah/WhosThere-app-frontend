@@ -15,3 +15,13 @@ export const GetUserDetails = async () => {
   const response = await axios.get("auth/getuserdetails");
   return response.data
 }
+
+export const GenerateNewAccessToken = async (data) => {
+  const response = await axios.post('auth/refresh', data);
+  return response.data;
+}
+
+export const logoutUser = async (data) => {
+  const response = await axios.post('auth/logout', data);
+  return response.data;
+}

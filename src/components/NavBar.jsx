@@ -3,7 +3,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { Bell, Menu, X, LogOut } from "lucide-react";
 import toast from "react-hot-toast";
 //Custom Imports
-import { removeToken } from "../utils/Token";
+import { getRefreshToken, removeRefreshToken, removeToken } from "../utils/Token";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,11 +11,25 @@ const Navbar = () => {
 
   const NavLinkClass = ({ isActive }) => `font-google-sans text-sm transition ${ isActive ? "text-primary" : "text-gray-400 hover:text-primary" }`;
 
-  const handleLogout = () => {
-    removeToken();
-    toast.success('User logged out successfully');
-    navigate('/login');
-  }
+  // const handleLogout = () => {
+  //   removeToken();
+  //   removeRefreshToken();
+  //   toast.success('User logged out successfully');
+  //   navigate('/login');
+  // }
+
+  const handleLogout = async () => {
+    const refreshToken = getRefreshToken();
+    try {
+        await logoutUser({ refreshToken: refreshToken });
+        removeToken();
+        removeRefreshToken();
+        setAuthUser(null);
+        navigate("/login");
+    } catch (error) {
+        toast.error(error.response.data?.message);
+    }
+};
 
   return (
     <nav className="border-b border-gray-200 bg-white">

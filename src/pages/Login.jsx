@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 //Custom Imports
 import FormField from "../components/FormField";
 import { LoginUser } from "../services/AuthService";
-import { setToken } from "../utils/Token";
+import { setRefreshToken, setToken } from "../utils/Token";
 import toast from "react-hot-toast";
   
 const Login = () => {
@@ -16,7 +16,8 @@ const Login = () => {
       const response = await LoginUser(data);
       if(response.success) {
         toast.success(response.message);
-        setToken(response.data.token);
+        setToken(response.data.accessToken);
+        setRefreshToken(response.data.refreshToken);
         navigate('/dashboard');
       }
     } catch (error) {
