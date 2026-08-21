@@ -24,12 +24,12 @@ const Dashboard = () => {
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <StatsCard
           title="Total Messages"
-          value={24}
+          value={AuthUser?.totalMessages}
           description="Messages received"
           icon={Mail} />
         <StatsCard
           title="Unread Messages"
-          value={8}
+          value={AuthUser?.unreadMessages}
           description="Waiting for you"
           icon={MailOpen} />
         <StatsCard
